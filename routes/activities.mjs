@@ -14,12 +14,9 @@ router.get("/:userId", async (req, res) => {
   };
   let user = await usersCollection.findOne(userQuery);
   
-  console.log("## Collections count ", await usersCollection.findOne(userQuery))
-
   // get the authed user's departmentIds
   let departmentIds = []
   user.departments.forEach((element) => {
-    console.log("## Lopping through", element)
     departmentIds.push(element.departmentId);
   })
 
@@ -49,7 +46,7 @@ router.get("/:activityId/member/:memberId/allocate-hours/:numberOfHoursSpent", a
   let collection = await db.collection("activities");
   
   // find the item in the db
-  let query = { _id: activityId };
+  let query = { _id: ObjectId(activityId) };
   let item = await collection.findOne(query);
 
   let i = 0;
